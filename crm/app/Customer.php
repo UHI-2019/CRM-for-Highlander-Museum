@@ -18,6 +18,7 @@ class Customer extends Model
         'customer_type'
     ];
 
+    // get the user associated with the customer
     public function user()
     {
         $this->hasOne('App\User');
