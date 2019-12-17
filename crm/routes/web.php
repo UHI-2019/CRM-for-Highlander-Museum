@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Auth\Middleware\Authenticate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,11 +13,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::get('/', function(){
+    return redirect('/home');
 });
+Route::get('/home', 'HomeController@index')->name('home');
 
-// routes like /register, /login, etc
+// default auth routes
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// customer auth routes - for superuser, etc
+Route::get('/admin/create', 'Auth\RegisterController@showAdminRegistrationForm')->middleware('superuser');
