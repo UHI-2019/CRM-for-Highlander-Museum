@@ -11,6 +11,9 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- Let the controller know we are registering a customer -->
+        <input type="hidden" name="role_constant" value="CUSTOMER">
+
         <!-- For creating a user -->
         <div class="form-group">
             <label for="name">Name:</label>

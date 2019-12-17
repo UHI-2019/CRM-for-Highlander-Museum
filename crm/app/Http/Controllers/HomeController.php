@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class HomeController extends Controller
 {
@@ -17,12 +19,23 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the correct home for different user roles.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('home');
+        switch(Auth::user()->role_id)
+        {
+            case Config::get('roles.SUPERUSER'):
+                return view('home.superuser');
+                break;
+            case Config::get('roles.ADMINISTRATOR'):
+                return view('home.admin');
+                break;
+            default:
+                return view('home.customer');
+        }
     }
 }
+
